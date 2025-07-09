@@ -26,20 +26,20 @@ export default function Chat() {
         padding: "8px",
         marginTop: "16px",
       }}>
-        <table>
-          <thead>
-            <tr>
-              <td>Nachrichten-Chat mit User {user === 1 ? "2" : "1"}</td>
-            </tr>
-          </thead>
-          <tbody>
-            {speicher.slice().map((nachricht) => (
-              <tr key={nachricht.id}>
-                <td style={{ textAlign: nachricht.user === user ? "right" : "left" }}>{nachricht.message}</td>
-              </tr>
+          <h3>Nachrichten-Chat mit User {user === 1 ? "2" : "1"}</h3>
+          <div style={{
+            height: "220px",
+            overflowY: "auto",
+            border: "1px solid gray",
+            padding: "8px",
+            marginTop: "16px",
+            display: "flex",
+            flexDirection: "column-reverse"
+          }}>
+            {speicher.slice().reverse().map((nachricht) => (
+              <div key={nachricht.id} style={{ textAlign: nachricht.user === user ? "right" : "left", marginBottom: "4px" }}>{nachricht.message}</div>
             ))}
-          </tbody>
-        </table>
+        </div>
       </div>
       <input type="text" placeholder="Nachricht" value={message} onChange={(e) => setMessage(e.target.value)} />
       <button onClick={() => {
