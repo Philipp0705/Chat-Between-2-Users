@@ -15,31 +15,38 @@ export default function Chat() {
 
   console.log(speicher)
   return (
-    <div>
+    <>
       <button onClick={() => setUser(1)}>Person 1</button>
       <button onClick={() => setUser(2)}>Person 2</button>
       <h1>Angemeldet: User {user}</h1>
+      <div style={{
+        height: "300px",
+        overflowY: "auto",
+        border: "1px solid gray",
+        padding: "8px",
+        marginTop: "16px",
+      }}>
+        <table>
+          <thead>
+            <tr>
+              <td>Nachrichten-Chat mit User {user === 1 ? "2" : "1"}</td>
+            </tr>
+          </thead>
+          <tbody>
+            {speicher.slice().map((nachricht) => (
+              <tr key={nachricht.id}>
+                <td style={{ textAlign: nachricht.user === user ? "right" : "left" }}>{nachricht.message}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <input type="text" placeholder="Nachricht" value={message} onChange={(e) => setMessage(e.target.value)} />
       <button onClick={() => {
         setSpeicher([...speicher, { message: message, user: user, id: number }])
         setNumber(prevNumber => prevNumber - 1)
         setMessage("")
       }}>Send</button>
-
-      <table>
-        <thead>
-          <tr>
-            <td>Nachrichten-Chat mit User {user === 1 ? "2" : "1"}</td>
-          </tr>
-        </thead>
-        <tbody>
-          {speicher.slice().reverse().map((nachricht) => (
-            <tr key={nachricht.id}>
-              <td style={{ textAlign: nachricht.user === user ? "right" : "left" }}>{nachricht.message}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    </>
   );
 }
